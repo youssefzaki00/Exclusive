@@ -1,12 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
-import img from "../assets/Auth/img.png";
-import { useContext, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { UserData } from "../context/UserData";
+import img from "../assets/Auth/img.png";
+import { useRef, useState } from "react";
 import { supabase } from "../utils/supabase";
+import useUserData from "../hooks/useUserData";
 import Loading from "../components/Loader/Loading";
+import { Link, useNavigate } from "react-router-dom";
 function Login() {
-  const { user, setUser } = useContext(UserData);
+  const { user, setUser } = useUserData();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -15,7 +15,7 @@ function Login() {
 
   const navigate = useNavigate();
 
-  async function handleSignIn()  {
+  async function handleSignIn() {
     try {
       const email = emailRef.current.value;
       const password = passwordRef.current.value;

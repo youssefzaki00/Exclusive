@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import RoadMap from "./../components/RoadMap";
-import { useContext, useEffect, useState } from "react";
-import { UserData } from "../context/UserData";
-import { supabase } from "../utils/supabase";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useUserData from "../hooks/useUserData";
+import { supabase } from "../utils/supabase";
+import RoadMap from "./../components/RoadMap";
 
 function Account() {
   const [firstName, setFirstName] = useState("");
@@ -13,81 +13,108 @@ function Account() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const { user, setUser } = useContext(UserData);
+  const { user, setUser } = useUserData();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setFirstName(user.first_name);
-    setLastName(user.last_name);
-    setEmail(user.email);
-    setAddress(user.address);
-    setCurrentPassword(user.password);
-  }, []);
+    setFirstName(user?.first_name);
+    setLastName(user?.last_name);
+    setEmail(user?.email);
+    setAddress(user?.address);
+  }, [user]);
+
   async function editProfile() {
     try {
-      if (!firstName || firstName == "") {
-        toast.error("please write Your firstName");
-      } else if (!lastName || lastName == "") {
-        toast.error("please write Your lastName");
-      } else if (!email || email == "") {
-        toast.error("please write Your email");
-      } else if (!address || address == "") {
-        toast.error("please write Your address");
-      } else if (!currentPassword || currentPassword == "") {
-        toast.error("please write Your Current Password");
-      } else if (currentPassword != user.password) {
-        toast.error("please write Your Current Password correctly");
-      } else if (newPassword != confirmNewPassword) {
-        toast.error("please confirm new password");
-      } else {
-        const { error } = await supabase.auth.updateUser({
-          email: email,
+      const validationErrors = []; // For collecting validation errors
+
+      if (!firstName) {
+        validationErrors.push("Please enter your first name.");
+      }
+
+      if (!lastName) {
+        validationErrors.push("Please enter your last name.");
+      }
+
+      if (!address) {
+        validationErrors.push("Please enter your address.");
+      }
+
+      if (!currentPassword) {
+        validationErrors.push("Please enter your password.");
+      }
+      if (currentPassword && currentPassword !== user.password) {
+        validationErrors.push("Incorrect current password ");
+      }
+
+      if (newPassword && newPassword !== confirmNewPassword) {
+        validationErrors.push("New password and confirm password don't match.");
+      }
+
+      if (validationErrors.length > 0) {
+        toast.error(validationErrors.join("\n")); // Display all errors
+        return;
+      }
+      let updateData = {};
+      if (newPassword && newPassword != "") {
+        updateData = {
+          email,
           password: newPassword,
           data: {
-            email: email,
+            email,
             first_name: firstName,
             last_name: lastName,
+            address,
             password: newPassword ? newPassword : currentPassword,
-            address: address,
           },
-        });
-        await supabase
-          .from("clients")
-          .update({
-            email: email,
+        };
+      } else {
+        updateData = {
+          email,
+          data: {
+            email,
             first_name: firstName,
             last_name: lastName,
+            address,
             password: newPassword ? newPassword : currentPassword,
-            address: address,
-          })
-          .eq("id", user.id)
-          .select();
-        setUser({
+          },
+        };
+      }
+
+      const { error } = await supabase.auth.updateUser(updateData);
+      if (error) {
+        toast.error(error.message);
+        console.error(error.message);
+        return;
+      }
+
+      await supabase
+        .from("clients")
+        .update({
           ...user,
-          email: email,
           first_name: firstName,
           last_name: lastName,
+          address,
           password: newPassword ? newPassword : currentPassword,
-          address: address,
-        });
-        if (error) {
-          toast.error(error.message);
-          console.error(error.message);
-          return;
-        }
-      }
+          email,
+        })
+        .eq("id", user.id)
+        .select();
+
+      setUser({
+        ...user,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        address,
+      });
+      navigate("/");
+      toast.success("You edited your profile successfully");
+      setNewPassword("");
+      setConfirmNewPassword("");
     } catch (error) {
-      toast.error(error);
-      console.error("Unexpected error fetching products:", error);
-      return;
+      toast.error(error.message);
+      console.error("Unexpected error:", error);
     }
-    toast.success("You edited Your profile successfully");
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setAddress("");
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmNewPassword("");
   }
   return (
     <div className="CustomContainer mb-[140px]">
@@ -150,12 +177,13 @@ function Account() {
                 Email <span className="text-secondary3"> *</span>
               </label>
               <input
-                onChange={(e) => setEmail(e.target.value)}
+                disabled
+                // onChange={(e) => setEmail(e.target.value)}
                 value={email || ""}
                 type="email"
                 id="Email"
                 name="Email"
-                className="p-2 rounded bg-secondary1"
+                className="p-2 rounded bg-primary2 text-secondary2"
               />
             </div>
             <div className="flex flex-col gap-2">

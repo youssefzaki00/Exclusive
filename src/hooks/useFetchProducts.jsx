@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 function useFetchProducts() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "./utils/supabase";
 import TopHeader from "./components/TopHeader";
 import Header from "./components/Header";
@@ -16,12 +16,12 @@ import About from "./About";
 import Contact from "./Contact";
 import ProductDetails from "./components/ProductDetails";
 import CheckEmail from "./components/CheckEmail";
-import { UserData } from "./context/UserData";
 import useFetchProducts from "./hooks/useFetchProducts";
 import Loading from "./components/Loader/Loading";
+import useUserData from "./hooks/useUserData";
 
 function App() {
-  const { setUser } = useContext(UserData);
+  const { setUser } = useUserData();
   const [uid, setUid] = useState("");
   const { loading } = useFetchProducts();
 

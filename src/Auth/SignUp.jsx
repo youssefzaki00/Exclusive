@@ -1,13 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import img from "../assets/Auth/img.png";
 import { supabase } from "../utils/supabase";
-import { useContext, useRef, useState } from "react";
-import { UserData } from "../context/UserData";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Loading from "./../components/Loader/Loading"; // Import the Loading component
+import useUserData from "../hooks/useUserData";
 
 function SignUp() {
-  const { setUser } = useContext(UserData);
+  const {  setUser } = useUserData();
   const [loading, setLoading] = useState(false);
   const [signUpError, setSignUpError] = useState("");
   const USER_NAME = useRef("");
