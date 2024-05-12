@@ -1,0 +1,51 @@
+.soon {
+  background: #222222;
+  font-family: "Helvetica Neue", "Helvetica", Arial, "Lucida   Grande",
+    sans-serif;
+  height: 100vh;
+}
+
+.soon h3 {
+  font-size: 1.5em;
+  font-weight: 100;
+  letter-spacing: 1em;
+  text-shadow: 0px 0px 20px #0a75ff;
+  color: #0a75ff;
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.soon .bar {
+  height: 0.3em;
+  width: 30em;
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: inset 0px 0px 8px #323232;
+  overflow: hidden;
+  padding: 5px 5px 10px;
+
+}
+
+.soon .progress {
+  height: inherit;
+  border-radius: inherit;
+  width: 0;
+  background: #0a75ff;
+  animation: load 3s linear infinite;
+  animation-delay: 2s;
+}
+
+@keyframes load {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+    float: right;
+  }
+}
