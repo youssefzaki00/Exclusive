@@ -7,10 +7,12 @@ import OurProducts from "./home/OurProducts";
 import TodayOffer from "./home/TodayOffer";
 import { UserData } from "./context/UserData";
 import { supabase } from "./utils/supabase";
+import useFetchProducts from "./hooks/useFetchProducts";
 // import { supabaseKey } from "./utils/supabase";
 
-function Home({ products }) {
+function Home() {
   const { user } = useContext(UserData);
+  const { products } = useFetchProducts();
 
   async function handleUserInfo() {
     await supabase.auth.updateUser({

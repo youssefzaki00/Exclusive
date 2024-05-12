@@ -40,6 +40,7 @@ function HeroSection() {
           </a>
         </div>
         <img
+          loading="lazy"
           src={heroImg}
           alt="HeroSection"
           className="object-contain w-0 h-full lg:w-96"

@@ -8,51 +8,51 @@ import Loading from "../components/Loader/Loading";
 function Login() {
   const { user, setUser } = useContext(UserData);
   const [loading, setLoading] = useState(false);
-  const [signUpError, setSignUpError] = useState("");
-  const USER_EMAIL_OR_PHONE = useRef("");
-  const USER_PASSWORD = useRef("");
+  const [error, setError] = useState("");
+
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
   const navigate = useNavigate();
 
-  async function handleSignIn() {
+  async function handleSignIn()  {
     try {
-      let { data } = await supabase.auth.signInWithPassword({
-        email: `${USER_EMAIL_OR_PHONE?.current?.value}`,
-        password: `${USER_PASSWORD?.current?.value}`,
-      });
-      await setUser({
-        first_name: data?.user?.user_metadata?.first_name,
-        email: USER_EMAIL_OR_PHONE?.current?.value,
-        password: USER_PASSWORD?.current?.value,
-      });
-    } catch (error) {
-      setLoading(false);
-      setSignUpError(error.message);
-      toast.error("Email or password are invalid");
-      console.log(error.message);
-    }
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
 
-    setSignUpError("");
-  }
+      if (!email || !password) {
+        setError("Please enter your email and password.");
+        return;
+      }
 
-  async function loginAccount() {
-    if (
-      !USER_EMAIL_OR_PHONE.current.value ||
-      USER_EMAIL_OR_PHONE.current.value == ""
-    ) {
-      setSignUpError("Please Write Your Email");
-      return;
-    } else if (
-      !USER_PASSWORD.current.value ||
-      USER_PASSWORD.current.value == ""
-    ) {
-      setSignUpError("Please Write Your Password");
-      return;
-    } else {
       setLoading(true);
-      await handleSignIn();
-      toast.info(" welcome " + user?.first_name);
-      toast.success("You logged In successfully");
+
+      const { data, error: supabaseError } =
+        await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+      if (supabaseError) {
+        toast.error("Login Failed Please Check Your email or password");
+        setError(supabaseError.message);
+        console.error(supabaseError.message);
+        return;
+      }
+
+      setUser({
+        firstName: data?.user?.user_metadata?.first_name,
+        email,
+      });
+
       navigate("/");
+      toast.info(`Welcome ${user?.firstName || "User"}`);
+      toast.success("You logged in successfully");
+    } catch (error) {
+      toast.error("An unexpected error occurred. Please try again.");
+      console.error(error.message);
+      setError("An unexpected error occurred. Please try again.");
+    } finally {
       setLoading(false);
     }
   }
@@ -66,33 +66,28 @@ function Login() {
         <p className="text-sm">Enter your details below</p>
         <form className="flex flex-col gap-10 mt-12">
           <input
-            ref={USER_EMAIL_OR_PHONE}
+            ref={emailRef}
             type="text"
-            placeholder="Email or Phone Number"
+            placeholder="Email"
             className="py-2 border-b border-opacity-50 border-b-text3"
           />
           <input
-            ref={USER_PASSWORD}
+            ref={passwordRef}
             type="password"
             placeholder="Password"
             className="py-2 border-b border-opacity-50 border-b-text3"
           />
-          <div className="grid items-center grid-cols-2 gap-8">
-            {signUpError && (
-              <p className="p-2 font-medium text-center rounded bg-buttonHover1 text-text1">
-                There is something wrong
-              </p>
-            )}
-            {signUpError && (
+          <div className="grid items-center grid-cols-1 gap-8">
+            {error && (
               <p className="p-2 font-medium text-center rounded bg-buttonHover1 text-text1">
                 There is something wrong
               </p>
             )}
             {loading ? (
-              <Loading /> // Render the Loading component while loading is true
+              <Loading />
             ) : (
               <button
-                onClick={loginAccount}
+                onClick={handleSignIn}
                 type="button"
                 className="p-4 font-medium text-center rounded shadow cursor-pointer text-text1 bg-button2 hover:bg-buttonHover1 active:shadow-inner"
               >

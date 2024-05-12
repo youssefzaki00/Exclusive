@@ -205,9 +205,12 @@ function Account() {
             />
           </div>
           <div className="flex flex-col justify-end gap-8 lg:flex-row">
-            <button className="p-4 border rounded shadow active:shadow-inner hover:bg-slate-50">
+            <Link
+              to="/"
+              className="p-4 border rounded shadow active:shadow-inner hover:bg-slate-50"
+            >
               Cancel
-            </button>
+            </Link>
             <button
               onClick={editProfile}
               className="p-4 border-black rounded shadow hover:bg-buttonHover1 active:shadow-inner text-text1 bg-button2"
