@@ -11,14 +11,17 @@ import { Link } from "react-router-dom";
 import { supabase } from "../utils/supabase";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router";
+import useUserData from "../hooks/useUserData";
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { setUser } = useUserData();
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isUser, setIsUser] = useState(false);
   async function signOut() {
     let { error } = await supabase.auth.signOut();
+    setUser("");
     navigate("/login");
     if (error) {
       console.log(error);

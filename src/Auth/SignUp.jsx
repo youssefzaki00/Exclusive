@@ -7,7 +7,7 @@ import Loading from "./../components/Loader/Loading"; // Import the Loading comp
 import useUserData from "../hooks/useUserData";
 
 function SignUp() {
-  const {  setUser } = useUserData();
+  const { setUser } = useUserData();
   const [loading, setLoading] = useState(false);
   const [signUpError, setSignUpError] = useState("");
   const USER_NAME = useRef("");
@@ -38,14 +38,21 @@ function SignUp() {
             last_name: "",
             cart_products: [],
             wishlist: [],
+            address: "",
           },
         ])
         .select();
       await setUser({
+        id: data?.user?.id,
+        email: USER_EMAIL_OR_PHONE?.current?.value,
+        password: USER_PASSWORD?.current?.value,
         first_name: USER_NAME?.current?.value,
-        email: `${USER_EMAIL_OR_PHONE?.current?.value}`,
-        password: `${USER_PASSWORD?.current?.value}`,
+        last_name: "",
+        cart_products: [],
+        wishlist: [],
+        address: "",
       });
+      localStorage.setItem("checkEmail", true);
     } catch (error) {
       setLoading(false);
       setSignUpError(error.message);

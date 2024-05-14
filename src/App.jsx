@@ -21,16 +21,24 @@ import Loading from "./components/Loader/Loading";
 import useUserData from "./hooks/useUserData";
 
 function App() {
-  const { setUser } = useUserData();
+  const { user, setUser } = useUserData();
   const [uid, setUid] = useState("");
   const { loading } = useFetchProducts();
 
   const GET_USER_UID = async () => {
-    await supabase.auth.onAuthStateChange((_, session) => {
-      setUid(session?.user.id);
-    });
+    try {
+      const { error } = await supabase.auth.onAuthStateChange((_, session) => {
+        setUid(session?.user.id);
+      });
+      if (error) {
+        console.error("Error getting user ID:", error);
+      }
+    } catch (error) {
+      console.error("Error getting user ID:", error);
+    }
   };
   const getUserData = async () => {
+    if (!uid) return;
     try {
       const { data, error } = await supabase.from("clients").select("*");
       const filteredUser = data?.filter((user) => user.id == uid)[0];
@@ -47,7 +55,6 @@ function App() {
     GET_USER_UID();
     getUserData();
   }, [uid]);
-  const cartIsEmpty = false;
   return (
     <>
       {loading ? (
@@ -57,20 +64,40 @@ function App() {
           <TopHeader />
           <Header />
           <Routes>
-            <Route path="/*" element={<Error />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/SignUp" element={<SignUp />} />
-            <Route path="/CheckEmail" element={<CheckEmail />} />
-
-            <Route path="/My Account" element={<Account />} />
+            <Route index path="/" element={<Home />} />
             <Route path="/About" element={<About />} />
             <Route path="/Contact" element={<Contact />} />
-            <Route path="/Cart" element={<Cart />} />
-            <Route path="/wishlist" element={<WishList />} />
+            <Route path="/*" element={<Error />} />
+            <Route path="/Error" element={<Error />} />
+            <Route path="/Login" element={user ? <Home /> : <Login />} />
+            <Route path="/SignUp" element={user ? <Home /> : <SignUp />} />
+            <Route
+              path="/Cart"
+              element={!user ? <Navigate to="/login" replace /> : <Cart />}
+            />
+            <Route
+              path="/wishlist"
+              element={!user ? <Navigate to="/login" replace /> : <WishList />}
+            />
+            <Route
+              path="/CheckEmail"
+              element={
+                localStorage.getItem("checkEmail") == true ? (
+                  <CheckEmail />
+                ) : (
+                  <Error />
+                )
+              }
+            />
+            <Route
+              path="/My Account"
+              element={!user ? <Navigate to="/login" replace /> : <Account />}
+            />
             <Route
               path="/checkout"
-              element={cartIsEmpty ? <Navigate to="/Cart" /> : <CheckOut />}
+              element={
+                user?.cart_products?.length > 0 ? <CheckOut /> : <Cart />
+              }
             />
             <Route path="/:category/:name" element={<ProductDetails />} />
           </Routes>

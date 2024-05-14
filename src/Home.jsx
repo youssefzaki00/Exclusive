@@ -8,7 +8,7 @@ import useFetchProducts from "./hooks/useFetchProducts";
 
 function Home() {
   const { products } = useFetchProducts();
-
+  localStorage.setItem("checkEmail", false);
   return (
     <>
       <HeroSection />

@@ -6,7 +6,7 @@ import useUserData from "../hooks/useUserData";
 import Loading from "../components/Loader/Loading";
 import { Link, useNavigate } from "react-router-dom";
 function Login() {
-  const { user, setUser } = useUserData();
+  const { setUser } = useUserData();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -39,14 +39,15 @@ function Login() {
         console.error(supabaseError.message);
         return;
       }
-
+      const { data: USER } = await supabase
+        .from("clients")
+        .select("*")
+        .eq("id", data.user.id);
       setUser({
-        firstName: data?.user?.user_metadata?.first_name,
-        email,
+        ...USER,
       });
-
       navigate("/");
-      toast.info(`Welcome ${user?.firstName || "User"}`);
+      toast.done(`Welcome ${USER[0]?.first_name || "User"} ✨`);
       toast.success("You logged in successfully");
     } catch (error) {
       toast.error("An unexpected error occurred. Please try again.");
