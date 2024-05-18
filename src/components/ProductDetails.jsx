@@ -9,12 +9,10 @@ import Loading from "./Loader/Loading";
 function ProductDetails() {
   const params = useParams();
   const { products, loading } = useFetchProducts(params.name);
-  const [product, setProduct] = useState();
-
+  const [product, setProduct] = useState(products);
   useEffect(() => {
     setProduct(...products);
   }, [products, params]);
-  const review = 4;
   return (
     <>
       {loading ? (
@@ -67,12 +65,12 @@ function ProductDetails() {
                   {[...Array(5)].map((_, index) => (
                     <Star
                       key={index}
-                      color={index < review ? "orange" : "gray"}
+                      color={index < product?.review ? "orange" : "gray"}
                     />
                   ))}
                 </div>
                 <p className="px-2 text-sm border-r text-text2 border-text2">
-                  (0 Reviews)
+                  ({product?.reviews} Reviews)
                 </p>
                 <p className="text-button1">
                   {product?.stock > 0 ? "in stock" : "out of stock"}

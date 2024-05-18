@@ -1,16 +1,16 @@
-import RoadMap from "./components/RoadMap";
-import Services from "./assets/Icons/Services.svg";
-import Services1 from "./assets/Icons/Services1.svg";
-import Services2 from "./assets/Icons/Services2.svg";
-import Services3 from "./assets/Icons/Services3.svg";
-import about1 from "./assets/AboutSection/image 46.png";
-import about2 from "./assets/AboutSection/image 48.png";
-import twitter from "./assets/Icons/icon-twitter2.svg";
-import instagram from "./assets/Icons/icon-instagram2.svg";
-import Linkedin from "./assets/Icons/Icon-Linkedin2.svg";
-import Money from "./assets/Icons/Services=Money back.svg";
-import Customer from "./assets/Icons/Services=Customer service.svg";
-import Delivery from "./assets/Icons/Services=Delivery.svg";
+import RoadMap from "../components/RoadMap";
+import Services from "../assets/Icons/Services.svg";
+import Services1 from "../assets/Icons/Services1.svg";
+import Services2 from "../assets/Icons/Services2.svg";
+import Services3 from "../assets/Icons/Services3.svg";
+import about1 from "../assets/AboutSection/image 46.png";
+import about2 from "../assets/AboutSection/image 48.png";
+import twitter from "../assets/Icons/icon-twitter2.svg";
+import instagram from "../assets/Icons/icon-instagram2.svg";
+import Linkedin from "../assets/Icons/Icon-Linkedin2.svg";
+import Money from "../assets/Icons/Services=Money back.svg";
+import Customer from "../assets/Icons/Services=Customer service.svg";
+import Delivery from "../assets/Icons/Services=Delivery.svg";
 
 function About() {
   return (

@@ -1,6 +1,6 @@
-import RoadMap from "./components/RoadMap";
-import phone from "./assets/Icons/icons-phone.svg";
-import mail from "./assets/Icons/icons-mail.svg";
+import RoadMap from "../components/RoadMap";
+import phone from "../assets/Icons/icons-phone.svg";
+import mail from "../assets/Icons/icons-mail.svg";
 function Contact() {
   return (
     <div className="CustomContainer">

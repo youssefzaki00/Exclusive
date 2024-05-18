@@ -1,14 +1,91 @@
 import Star from "./Star";
 import Cart from "../assets/Icons/Cart1-white.svg";
-import Wishlist from "../assets/Icons/Wishlist.svg";
+import WishlistIcon from "../assets/Icons/Wishlist.svg";
+import wishlistRed from "../assets/Icons/wishlistRed.svg";
 import QuickView from "../assets/Icons/QuickView.svg";
 import { Link } from "react-router-dom";
+import { supabase } from "../utils/supabase";
+import useUserData from "../hooks/useUserData";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 function ProductCard(props) {
   const { data, translate } = props;
   const review = 5;
+  const { user, setUser } = useUserData();
+  const [inWishList, setInWishList] = useState(false);
+  const [list, setList] = useState(user.wishlist);
+  async function addToWishlist() {
+    const { error } = await supabase
+      .from("clients")
+      .update({
+        ...user,
+        wishlist: [...list, data],
+      })
+      .eq("id", user.id)
+      .select();
+    if (error) {
+      toast.error("Failed adding product to your wishlist try again.");
+      console.log(error.message);
+    } else {
+      setUser({
+        ...user,
+        wishlist: [...list, data],
+      });
+      checkInWishList();
+      setInWishList(true);
+      toast.success("Product Added to your wishlist successfully");
+    }
+  }
+  async function removeFromWishlist() {
+    let filteredList = [];
+    filteredList = list.filter((product) => product.id != data.id);
+
+    const { error } = await supabase
+      .from("clients")
+      .update({
+        ...user,
+        wishlist: filteredList,
+      })
+      .eq("id", user.id)
+      .select();
+    if (error) {
+      toast.error("Failed removing product from your wishlist try again.");
+      console.log(error.message);
+    } else {
+      setUser({
+        ...user,
+        wishlist: filteredList,
+      });
+      checkInWishList();
+      setInWishList(false);
+      toast.success("Product removed from your wishlist successfully");
+    }
+  }
+  async function getWishList() {
+    let { data } = await supabase
+      .from("clients")
+      .select("wishlist")
+      .eq("id", user.id);
+    const parsedWishList = data[0].wishlist.map((e) => JSON.parse(e));
+    setList(parsedWishList);
+  }
+  const checkInWishList = async () => {
+    for (let i = 0; i < list?.length; i++) {
+      if (list[i]?.id && list[i].id == data?.id) {
+        setInWishList(true);
+      } else {
+        setInWishList(false);
+      }
+    }
+  };
+  useEffect(() => {
+    getWishList();
+    checkInWishList();
+  }, []);
   return (
     <div
+      key={data.id}
       style={{
         translate: `${translate}px`,
       }}
@@ -17,7 +94,7 @@ function ProductCard(props) {
       <div className="flex justify-center items-center rounded mb-2 bg-secondary1 p-3 h-[250px] relative">
         <img
           loading="lazy"
-          src={data.image}
+          src={data?.image}
           alt="product image"
           className="object-contain max-w-32"
         />
@@ -25,12 +102,17 @@ function ProductCard(props) {
           -35%
         </p>
         <div className="absolute flex flex-col gap-2 top-3 right-3">
-          <img
-            src={Wishlist}
-            alt="Wishlist"
-            className="object-contain p-1 w-[34px] rounded-full cursor-pointer bg-secondary2 hover:shadow active:shadow-inner"
-          />
-          <Link className="w-[34px]" to={`/${data.category}/${data.name}`}>
+          <button
+            type="button"
+            onClick={inWishList ? removeFromWishlist : addToWishlist}
+          >
+            <img
+              src={inWishList ? wishlistRed : WishlistIcon}
+              alt="Wishlist"
+              className="object-contain p-1 w-[34px] rounded-full cursor-pointer bg-secondary2 hover:shadow active:shadow-inner"
+            />
+          </button>
+          <Link className="w-[34px]" to={`/${data?.category}/${data?.name}`}>
             <img
               src={QuickView}
               alt="Quick View of product"
@@ -45,9 +127,9 @@ function ProductCard(props) {
       </div>
       <p className="font-medium text-text3 ">{data.name}</p>
       <p className="font-medium text-secondary3 ">
-        ${data.price.toFixed(2)}
+        ${data?.price?.toFixed(2)}
         <span className="ml-3 line-through text-text2">
-          ${Number(Number(data.price.toFixed(2)) / 0.65).toFixed(2)}
+          ${(Number(data?.price) / 0.65).toFixed(2)}
         </span>
       </p>
       <div className="flex items-center gap-2">

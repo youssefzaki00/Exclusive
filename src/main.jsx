@@ -12,9 +12,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <UserDataProvider>
-        <App />
-        <ScrollToTop />
-        <ToastContainer />
+          <App />
+          <ScrollToTop />
+          <ToastContainer />
       </UserDataProvider>
     </BrowserRouter>
   </React.StrictMode>

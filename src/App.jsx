@@ -12,8 +12,8 @@ import Cart from "./cart/Cart";
 import CheckOut from "./cart/CheckOut";
 import Account from "./Auth/Account";
 import Error from "./components/Error";
-import About from "./About";
-import Contact from "./Contact";
+import About from "./static/About";
+import Contact from "./static/Contact";
 import ProductDetails from "./components/ProductDetails";
 import CheckEmail from "./components/CheckEmail";
 import useFetchProducts from "./hooks/useFetchProducts";
@@ -40,9 +40,12 @@ function App() {
   const getUserData = async () => {
     if (!uid) return;
     try {
-      const { data, error } = await supabase.from("clients").select("*");
-      const filteredUser = data?.filter((user) => user.id == uid)[0];
-      setUser(filteredUser);
+      const { data, error } = await supabase
+        .from("clients")
+        .select("*")
+        .eq("id", uid);
+
+      setUser(data[0]);
       if (error) {
         console.error("Error fetching user data:", error);
         return [];

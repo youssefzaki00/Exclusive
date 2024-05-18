@@ -1,11 +1,13 @@
 import SectionHeader from "./SectionHeader";
 import ProductCard from "./ProductCard";
-function RelatedProducts({ products }) {
+import useFetchProducts from "./../hooks/useFetchProducts";
+function RelatedProducts() {
+  const { products } = useFetchProducts();
   return (
     <>
       <div className="flex justify-between items-center mb-[60px]">
         <SectionHeader content="Related Item" />
-        <button className="text-center border border-black border-opacity-50 rounded px-12 py-4">
+        <button className="px-12 py-4 text-center border border-black border-opacity-50 rounded">
           See All
         </button>
       </div>
