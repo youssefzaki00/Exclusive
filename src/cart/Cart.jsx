@@ -2,13 +2,24 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RoadMap from "./../components/RoadMap";
 
-function Cart({ products }) {
-  const cartProducts = products.slice(2, 6);
+import useUserData from "../hooks/useUserData";
+import { supabase } from "../utils/supabase";
+
+function Cart() {
+  const { user } = useUserData();
+  const [cartProducts, setCartProducts] = useState(user.cart);
   const [quantities, setQuantities] = useState(
     cartProducts.map((product) => ({ [product.id]: 1 }))
   );
-  const [total, setTotal] = useState(0); // Use state for total
-
+  const [total, setTotal] = useState(0);
+  async function getCartArr() {
+    let { data } = await supabase
+      .from("clients")
+      .select("cart")
+      .eq("id", user.id);
+    const parsedCartArr = data[0]?.cart?.map((e) => JSON.parse(e));
+    setCartProducts(parsedCartArr);
+  }
   function handleQuantitiesChange(productID, e) {
     setQuantities({
       ...quantities,
@@ -32,10 +43,11 @@ function Cart({ products }) {
   };
 
   useEffect(() => {
+    getCartArr();
     calculateTotal();
-  }, [cartProducts, quantities]);
+  }, [quantities]);
   return (
-    <div className="CustomContainer capitalize">
+    <div className="capitalize CustomContainer">
       <RoadMap />
       <div className="flex flex-col gap-10">
         <ul
@@ -49,87 +61,88 @@ function Cart({ products }) {
         </ul>
         {cartProducts.map((product) => (
           <ul
-            key={product.id}
+            key={product?.id}
             className="grid grid-cols-4 place-items-center shadow-md 
       rounded w-full justify-items-center py-6 shadow-[#0000000D] text-center"
           >
-            <li className="w-full flex justify-center">
-              <div className="w-full grid grid-cols-2 place-items-end items-center">
+            <li className="flex justify-center w-full">
+              <div className="grid items-center w-full grid-cols-2 place-items-end">
                 <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-6 lg:w-10 object-contain "
+                  src={product?.image}
+                  alt={product?.name}
+                  className="object-contain w-6 lg:w-10 "
                 />
-                <p className="text-start -mr-2 lg:-mr-6 text-sm lg:text-base w-full">
-                  {product.name}
+                <p className="w-full -mr-2 text-sm text-start lg:-mr-6 lg:text-base">
+                  {product?.name}
                 </p>
               </div>
             </li>
-            <li>${product.price}</li>
+            <li>${product?.price}</li>
             <li>
               <input
                 type="number"
                 min={1}
-                onChange={(e) => handleQuantitiesChange(product.id, e)}
-                value={quantities[product.id] || 1}
+                onChange={(e) => handleQuantitiesChange(product?.id, e)}
+                value={quantities[product?.id] || 1}
                 className="w-[72px] h-[44px] p-2 bg-primary1 rounded border-[1.5px] border-text3 border-opacity-40"
               />
             </li>
             <li>
               $
-              {calculateSubtotal(product, quantities[product.id] || 1).toFixed(
-                2
-              )}
+              {calculateSubtotal(
+                product,
+                quantities[product?.id] || 1
+              )?.toFixed(2)}
             </li>
           </ul>
         ))}
       </div>
-      <div className="lg:flex justify-between grid grid-cols-2 text-center gap-4 items-center mb-20 mt-10">
+      <div className="grid items-center justify-between grid-cols-2 gap-4 mt-10 mb-20 text-center lg:flex">
         <Link
           to="/"
-          className="rounded py-4  border-text3 border border-opacity-50 shadow active:shadow-inner hover:text-text3 hover:bg-gradient-to-l hover:from-white hover:to-buttonHover2 lg:px-12"
+          className="py-4 border border-opacity-50 rounded shadow border-text3 active:shadow-inner hover:text-text3 hover:bg-gradient-to-l hover:from-white hover:to-buttonHover2 lg:px-12"
         >
           Return To Shop
         </Link>
         <button
           onClick={calculateTotal}
-          className="rounded py-4  border-text3 border border-opacity-50 shadow active:shadow-inner hover:text-text3 hover:bg-gradient-to-r hover:from-white hover:to-buttonHover2 lg:px-12"
+          className="py-4 border border-opacity-50 rounded shadow border-text3 active:shadow-inner hover:text-text3 hover:bg-gradient-to-r hover:from-white hover:to-buttonHover2 lg:px-12"
         >
           Update Cart
         </button>
       </div>
       <div className="grid lg:grid-cols-2 gap-20 mb-[140px] items-start">
-        <div className="grid grid-cols-5 h-fit items-start gap-4">
+        <div className="grid items-start grid-cols-5 gap-4 h-fit">
           <input
             type="text"
-            className="border-black border h-full rounded p-4 col-span-3"
+            className="h-full col-span-3 p-4 border border-black rounded"
             placeholder="Coupon Code"
           />
           <button
             type="button"
-            className="bg-button2 hover:bg-buttonHover1 shadow active:shadow-inner text-center h-full p-4 rounded font-medium text-text1 col-span-2"
+            className="h-full col-span-2 p-4 font-medium text-center rounded shadow bg-button2 hover:bg-buttonHover1 active:shadow-inner text-text1"
           >
             Apply Coupon
           </button>
         </div>
-        <div className="border border-black rounded py-4 px-6 flex-col flex gap-4">
-          <h3 className=" text-xl font-medium mb-2">Cart Total</h3>
-          <div className="flex justify-between items-center border-b pb-4">
+        <div className="flex flex-col gap-4 px-6 py-4 border border-black rounded">
+          <h3 className="mb-2 text-xl font-medium ">Cart Total</h3>
+          <div className="flex items-center justify-between pb-4 border-b">
             <p>Subtotal:</p>
             <p>${total}</p>
           </div>
-          <div className="flex justify-between items-center border-b pb-4">
+          <div className="flex items-center justify-between pb-4 border-b">
             <p>shipping:</p>
             <p>free</p>
           </div>
-          <div className="flex justify-between items-center border-b pb-4">
+          <div className="flex items-center justify-between pb-4 border-b">
             <p>total:</p>
             <p>${total}</p>
           </div>
           <div className="flex justify-center">
             <Link
               to={`/checkout`}
-              className="bg-button2 hover:bg-buttonHover1 shadow active:shadow-inner rounded py-4 px-12 text-text1 "
+              className="px-12 py-4 rounded shadow bg-button2 hover:bg-buttonHover1 active:shadow-inner text-text1 "
             >
               Process to checkout
             </Link>

@@ -14,7 +14,74 @@ function ProductCard(props) {
   const review = 5;
   const { user, setUser } = useUserData();
   const [inWishList, setInWishList] = useState(false);
+  const [inCart, setInCart] = useState(false);
   const [list, setList] = useState(user.wishlist);
+  const [cartArr, setCartArr] = useState(user.cart);
+  async function addToCart() {
+    const cartList = cartArr ? cartArr : [];
+    const { error } = await supabase
+      .from("clients")
+      .update({
+        ...user,
+        cart: [...cartList, data],
+      })
+      .eq("id", user.id)
+      .select();
+    if (error) {
+      toast.error("Failed adding product to your car try again.");
+      console.log(error.message);
+    } else {
+      setUser({
+        ...user,
+        cart: [...cartList, data],
+      });
+      checkInCartArr();
+      setInCart(true);
+      toast.success("Product Added to your cart successfully");
+    }
+  }
+  async function removeFromCart() {
+    let filteredCart = [];
+    filteredCart = cartArr.filter((product) => product.id != data.id);
+
+    const { error } = await supabase
+      .from("clients")
+      .update({
+        ...user,
+        cart: filteredCart,
+      })
+      .eq("id", user.id)
+      .select();
+    if (error) {
+      toast.error("Failed removing product from your cart try again.");
+      console.log(error.message);
+    } else {
+      setUser({
+        ...user,
+        cart: filteredCart,
+      });
+      checkInCartArr();
+      setInCart(false);
+      toast.success("Product removed from your cart successfully");
+    }
+  }
+  async function getCartArr() {
+    let { data } = await supabase
+      .from("clients")
+      .select("cart")
+      .eq("id", user.id);
+    const parsedCartArr = data[0]?.cart?.map((e) => JSON.parse(e));
+    setCartArr(parsedCartArr);
+  }
+  const checkInCartArr = async () => {
+    for (let i = 0; i < cartArr?.length; i++) {
+      if (cartArr[i]?.id && cartArr[i].id == data?.id) {
+        setInCart(true);
+      } else {
+        setInCart(false);
+      }
+    }
+  };
   async function addToWishlist() {
     const { error } = await supabase
       .from("clients")
@@ -80,6 +147,8 @@ function ProductCard(props) {
     }
   };
   useEffect(() => {
+    getCartArr();
+    checkInCartArr();
     getWishList();
     checkInWishList();
   }, []);
@@ -120,9 +189,12 @@ function ProductCard(props) {
             />
           </Link>
         </div>
-        <button className="absolute bottom-0 left-0 items-center justify-center hidden w-full gap-2 py-2 text-center transition-all duration-200 bg-black text-primary1 group-hover:flex">
+        <button
+          onClick={inCart ? removeFromCart : addToCart}
+          className="absolute bottom-0 left-0 items-center justify-center hidden w-full gap-2 py-2 text-center transition-all duration-200 bg-black text-primary1 group-hover:flex"
+        >
           <img src={Cart} alt="Cart" />
-          <p>Add To Cart</p>
+          <p>{inCart ? "remove from cart" : "add to Cart"}</p>
         </button>
       </div>
       <p className="font-medium text-text3 ">{data.name}</p>
