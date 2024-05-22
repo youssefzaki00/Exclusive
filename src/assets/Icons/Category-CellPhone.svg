@@ -1,13 +1,1 @@
-<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_2447_868)">
-<path d="M38.9375 6.125H17.0625C15.5523 6.125 14.3281 7.34922 14.3281 8.85938V47.1406C14.3281 48.6508 15.5523 49.875 17.0625 49.875H38.9375C40.4477 49.875 41.6719 48.6508 41.6719 47.1406V8.85938C41.6719 7.34922 40.4477 6.125 38.9375 6.125Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M25.6667 7H31.1354" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M28 44.0052V44.0305" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="15.1667" y1="39.8334" x2="40.8333" y2="39.8334" stroke="black" stroke-width="2"/>
-</g>
-<defs>
-<clipPath id="clip0_2447_868">
-<rect width="56" height="56" fill="white"/>
-</clipPath>
-</defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="none" xmlns:v="https://vecta.io/nano"><g clip-path="url(#A)" stroke="#000"><g stroke-linejoin="round"><path d="M38.938 6.125H17.063c-1.51 0-2.734 1.224-2.734 2.734v38.281c0 1.51 1.224 2.734 2.734 2.734h21.875c1.51 0 2.734-1.224 2.734-2.734V8.859c0-1.51-1.224-2.734-2.734-2.734z" stroke-width="2"/><g stroke-linecap="round"><path d="M25.667 7h5.469" stroke-width="3"/><path d="M28 44.005v.025" stroke-width="2.5"/></g></g><path stroke-width="2" d="M15.167 39.833h25.667"/></g><defs><clipPath id="A"><path fill="#fff" d="M0 0h56v56H0z"/></clipPath></defs></svg>

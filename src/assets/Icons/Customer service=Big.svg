@@ -1,13 +1,1 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_210_4468)">
-<path d="M10 19.3333C10 17.4924 8.433 16 6.5 16C4.567 16 3 17.4924 3 19.3333V22.6667C3 24.5076 4.567 26 6.5 26C8.433 26 10 24.5076 10 22.6667V19.3333Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M29 19.3333C29 17.4924 27.6569 16 26 16C24.3431 16 23 17.4924 23 19.3333V22.6667C23 24.5076 24.3431 26 26 26C27.6569 26 29 24.5076 29 22.6667V19.3333Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M3 19V14.3636C3 11.0846 4.36964 7.93986 6.80761 5.62123C9.24558 3.30259 12.5522 2 16 2C19.4478 2 22.7544 3.30259 25.1924 5.62123C27.6304 7.93986 29 11.0846 29 14.3636V19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M26 26C26 27.3261 24.9464 28.5979 23.0711 29.5355C21.1957 30.4732 18.6522 31 16 31" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_210_4468">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" xmlns:v="https://vecta.io/nano"><g clip-path="url(#A)" stroke="#000" stroke-width="2" stroke-linejoin="round"><path d="M10 19.333C10 17.492 8.433 16 6.5 16S3 17.492 3 19.333v3.333C3 24.508 4.567 26 6.5 26s3.5-1.492 3.5-3.333v-3.333zm19 0C29 17.492 27.657 16 26 16s-3 1.492-3 3.333v3.333C23 24.508 24.343 26 26 26s3-1.492 3-3.333v-3.333z"/><g stroke-linecap="round"><path d="M3 19v-4.636c0-3.279 1.37-6.424 3.808-8.742S12.552 2 16 2s6.754 1.303 9.192 3.621S29 11.085 29 14.364V19m-3 7c0 1.326-1.054 2.598-2.929 3.535S18.652 31 16 31"/></g></g><defs><clipPath id="A"><path fill="#fff" d="M0 0h32v32H0z"/></clipPath></defs></svg>
