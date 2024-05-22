@@ -24,6 +24,7 @@ function ProductDetails() {
             <div className="flex lg:grid grid-cols-1 mb-4 lg:mb-0 gap-2 lg:gap-4 lg:mr-[30px] lg:col-span-1">
               <div className="flex items-center justify-center p-2 rounded bg-secondary1 lg:p-4">
                 <img
+                  loading="lazy"
                   src={product?.image}
                   alt="product image"
                   className="object-contain w-full h-full transform rotate-45 "
@@ -31,6 +32,7 @@ function ProductDetails() {
               </div>
               <div className="flex items-center justify-center p-2 rounded bg-secondary1 lg:p-4">
                 <img
+                  loading="lazy"
                   src={product?.image}
                   alt="product image"
                   className="object-contain w-full h-full transform -rotate-45 "
@@ -38,6 +40,7 @@ function ProductDetails() {
               </div>
               <div className="flex items-center justify-center p-2 rounded bg-secondary1 lg:p-4">
                 <img
+                  loading="lazy"
                   src={product?.image}
                   alt="product image"
                   className="object-contain w-full h-full transform -rotate-90 "
@@ -45,6 +48,7 @@ function ProductDetails() {
               </div>
               <div className="flex items-center justify-center p-2 rounded bg-secondary1 lg:p-4">
                 <img
+                  loading="lazy"
                   src={product?.image}
                   alt="product image"
                   className="object-contain w-full h-full transform rotate-180 "
@@ -53,6 +57,7 @@ function ProductDetails() {
             </div>
             <div className="bg-secondary1 rounded py-4 max-lg:mb-4 px-[30px] flex items-center justify-center lg:col-span-3">
               <img
+                loading="lazy"
                 src={product?.image}
                 alt="product image"
                 className="object-contain "

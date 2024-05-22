@@ -47,6 +47,7 @@ function Categories() {
             className="border border-[#0000004D] rounded flex flex-col gap-4 max-w-[170px] h-[145px] justify-center items-center cursor-pointer hover:shadow-sm active:shadow-inner group hover:bg-secondary3 hover:text-text1"
           >
             <img
+              loading="lazy"
               src={data.img}
               alt={data.title}
               className="object-contain group-hover:invert"

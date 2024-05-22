@@ -1,7 +1,6 @@
 import Mastercard from "../assets/Icons/Mastercard.svg";
 import visa from "../assets/Icons/Visa.svg";
 import Bkash from "../assets/Icons/Bkash.svg";
-import Nagad from "../assets/Icons/Nagad.svg";
 import RoadMap from "../components/RoadMap";
 import { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
@@ -112,6 +111,7 @@ function CheckOut() {
             >
               <div className="flex items-center -ml-1.5 gap-6">
                 <img
+                  loading="lazy"
                   src={product.image}
                   alt={product.name}
                   className="object-contain w-12 h-12"
@@ -144,10 +144,9 @@ function CheckOut() {
               />
               <label htmlFor="bank">bank</label>
               <div className="absolute right-0 flex items-center gap-2">
-                <img src={visa} alt="visa" />
-                <img src={Mastercard} alt="Mastercard" />
-                <img src={Bkash} alt="Nagad" />
-                <img src={Nagad} alt="Nagad" />
+                <img loading="lazy" src={visa} alt="visa" />
+                <img loading="lazy" src={Mastercard} alt="Mastercard" />
+                <img loading="lazy" src={Bkash} alt="Nagad" />
               </div>
             </div>
             <div className="flex gap-4">

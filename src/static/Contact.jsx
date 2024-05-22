@@ -9,7 +9,7 @@ function Contact() {
         <div className="flex flex-col items-center justify-center py-10 text-sm rounded shadow-lg lg:col-span-2 px-9">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              <img src={phone} alt="phone" />
+              <img src={phone} alt="phone" loading="lazy" />
               <h4 className="text-base font-medium">Call To Us</h4>
             </div>
             <p>We are available 24/7, 7 days a week.</p>
@@ -18,7 +18,7 @@ function Contact() {
           <div className="bg-[#afafaf] h-px w-full my-8"></div>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              <img src={mail} alt="mail" />
+              <img src={mail} alt="mail" loading="lazy" />
               <h4 className="text-base font-medium">Write to us.</h4>
             </div>
             <p>Fill out our form and we will contact you within 24 hours.</p>

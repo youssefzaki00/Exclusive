@@ -61,6 +61,7 @@ function Cart() {
             <li className="flex justify-center w-full">
               <div className="grid items-center w-full grid-cols-2 place-items-end">
                 <img
+                  loading="lazy"
                   src={product?.image}
                   alt={product?.name}
                   className="object-contain w-6 lg:w-10 "

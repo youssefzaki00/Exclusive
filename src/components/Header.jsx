@@ -51,7 +51,7 @@ function Header() {
           } block right-2 z-[5] lg:hidden`}
           onClick={() => setIsMenuActive(!isMenuActive)}
         >
-          <img loading="lazy" src={menu} alt="menu" />
+          <img  src={menu} alt="menu" />
         </button>
         <div
           className={`${
@@ -116,7 +116,7 @@ function Header() {
                   required
                 />
                 <div className="absolute inset-y-0 flex items-center pr-3 pointer-events-none end-0">
-                  <img loading="lazy" src={searchIcon} alt="search Icon" />
+                  <img src={searchIcon} alt="search Icon" />
                 </div>
               </div>
             </form>
@@ -131,7 +131,7 @@ function Header() {
                 onClick={() => setIsMenuActive(false)}
               >
                 <img
-                  loading="lazy"
+                  
                   src={
                     location.pathname == "/wishlist" ? wishlistWhite : wishlist
                   }
@@ -146,7 +146,7 @@ function Header() {
                 onClick={() => setIsMenuActive(false)}
               >
                 <img
-                  loading="lazy"
+                  
                   src={location.pathname == "/cart" ? cartWhite : cart}
                   alt="cart"
                 />
@@ -161,7 +161,7 @@ function Header() {
                 onClick={() => setIsMenuActive(false)}
               >
                 <img
-                  loading="lazy"
+                  
                   src={
                     location.pathname == "/My%20Account"
                       ? AccountWhite

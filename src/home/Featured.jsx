@@ -15,6 +15,7 @@ function Featured() {
       <div className="flex flex-col grid-cols-4 grid-rows-6 gap-2 lg:grid lg:gap-6 ">
         <div className="col-span-2 row-span-6 bg-black px-[30px] pt-[90px] rounded relative justify-center items-end flex">
           <img
+            loading="lazy"
             src={playstation}
             alt="playstation"
             className="object-contain "
@@ -38,6 +39,7 @@ function Featured() {
           after:blur-[100px] after:w-full after:h-full after:z-0 overflow-hidden"
         >
           <img
+            loading="lazy"
             src={cloths}
             alt="jacket"
             className="relative object-contain  z-[1]"
@@ -60,6 +62,7 @@ function Featured() {
           after:blur-[100px] after:w-full after:h-full after:z-0 overflow-hidden"
         >
           <img
+            loading="lazy"
             src={speakers}
             alt="speakers"
             className="relative object-contain h-full  z-[1]"
@@ -80,6 +83,7 @@ function Featured() {
           after:blur-[100px] after:w-full after:h-full after:z-0 overflow-hidden"
         >
           <img
+            loading="lazy"
             src={perfume}
             alt="perfume"
             className="relative object-contain h-full  z-[1] "
@@ -98,6 +102,7 @@ function Featured() {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-0 items-center justify-between mt-[140px] text-center">
         <div className="flex flex-col items-center justify-center">
           <img
+            loading="lazy"
             src={Delivery}
             alt="Delivery"
             className="object-contain w-20 h-20 mb-6"
@@ -107,6 +112,7 @@ function Featured() {
         </div>
         <div className="flex flex-col items-center justify-center">
           <img
+            loading="lazy"
             src={Customer}
             alt="Customer Service"
             className="object-contain w-20 h-20 mb-6"
@@ -116,6 +122,7 @@ function Featured() {
         </div>
         <div className="flex flex-col items-center justify-center">
           <img
+            loading="lazy"
             src={Money}
             alt="Money back"
             className="object-contain w-20 h-20 mb-6"

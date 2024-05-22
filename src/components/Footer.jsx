@@ -117,36 +117,41 @@ function Footer() {
             </p>
             <ul className="flex gap-2.5 text-sm font-medium  ">
               <li className="mb-4">
-                <img src={QR} alt="QR Code" />
+                <img src={QR} alt="QR Code" loading="lazy" />
               </li>
               <li className="flex flex-col gap-2">
                 <Link>
-                  <img src={GooglePlay} alt="GooglePlay" />
+                  <img src={GooglePlay} alt="GooglePlay" loading="lazy" />
                 </Link>
                 <Link>
-                  <img src={AppStore} alt="AppStore" />
+                  <img src={AppStore} alt="AppStore" loading="lazy" />
                 </Link>
               </li>
             </ul>
             <ul className="flex items-center gap-6">
               <li>
                 <Link>
-                  <img src={Facebook} alt="Facebook" />
+                  <img src={Facebook} alt="Facebook" loading="lazy" />
                 </Link>
               </li>
               <li>
                 <Link>
-                  <img src={twitter} alt="twitter" className="w-6 h-6" />
+                  <img
+                    src={twitter}
+                    alt="twitter"
+                    className="w-6 h-6"
+                    loading="lazy"
+                  />
                 </Link>
               </li>
               <li>
                 <Link>
-                  <img src={instagram} alt="instagram" />
+                  <img src={instagram} alt="instagram" loading="lazy" />
                 </Link>
               </li>
               <li>
                 <Link>
-                  <img src={Linkedin} alt="Linkedin" />
+                  <img src={Linkedin} alt="Linkedin" loading="lazy" />
                 </Link>
               </li>
             </ul>
@@ -155,7 +160,7 @@ function Footer() {
         <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
         <div className="text-center sm:flex sm:items-center sm:justify-center">
           <span className="text-sm text-center text-gray-500 sm:text-center ">
-            © Copyright Rimel 2024. All right reserved
+            © Copyright Youssef 2024. All right reserved
           </span>
         </div>
       </div>
