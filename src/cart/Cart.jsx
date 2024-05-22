@@ -62,7 +62,7 @@ function Cart() {
               <div className="grid items-center w-full grid-cols-2 place-items-end">
                 <img
                   loading="lazy"
-                  src={product?.image}
+                  srcSet={product?.image}
                   alt={product?.name}
                   className="object-contain w-6 lg:w-10 "
                 />

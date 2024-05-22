@@ -48,7 +48,7 @@ function Categories() {
           >
             <img
               loading="lazy"
-              src={data.img}
+              srcSet={data.img}
               alt={data.title}
               className="object-contain group-hover:invert"
             />

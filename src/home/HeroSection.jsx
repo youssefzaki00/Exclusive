@@ -28,7 +28,7 @@ function HeroSection() {
       <div className="flex items-center justify-between w-full h-full col-span-3 py-4 pl-16 text-left bg-black text-primary1">
         <div className="flex flex-col gap-5">
           <div className="flex items-center gap-6">
-            <img src={Apple} alt="Apple" className="object-contain w-10 " />
+            <img srcSet={Apple} alt="Apple" className="object-contain w-10 " />
             <p>iPhone 14 Series</p>
           </div>
           <h2 className="text-5xl font-semibold leading-tight tracking-wide ">
@@ -41,7 +41,7 @@ function HeroSection() {
         </div>
         <img
           loading="lazy"
-          src={heroImg}
+          srcSet={heroImg}
           alt="HeroSection"
           className="object-contain w-0 h-full lg:w-96"
         />

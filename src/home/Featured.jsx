@@ -16,7 +16,7 @@ function Featured() {
         <div className="col-span-2 row-span-6 bg-black px-[30px] pt-[90px] rounded relative justify-center items-end flex">
           <img
             loading="lazy"
-            src={playstation}
+            srcSet={playstation}
             alt="playstation"
             className="object-contain "
           />
@@ -40,7 +40,7 @@ function Featured() {
         >
           <img
             loading="lazy"
-            src={cloths}
+            srcSet={cloths}
             alt="jacket"
             className="relative object-contain  z-[1]"
           />
@@ -63,7 +63,7 @@ function Featured() {
         >
           <img
             loading="lazy"
-            src={speakers}
+            srcSet={speakers}
             alt="speakers"
             className="relative object-contain h-full  z-[1]"
           />
@@ -84,7 +84,7 @@ function Featured() {
         >
           <img
             loading="lazy"
-            src={perfume}
+            srcSet={perfume}
             alt="perfume"
             className="relative object-contain h-full  z-[1] "
           />
@@ -103,7 +103,7 @@ function Featured() {
         <div className="flex flex-col items-center justify-center">
           <img
             loading="lazy"
-            src={Delivery}
+            srcSet={Delivery}
             alt="Delivery"
             className="object-contain w-20 h-20 mb-6"
           />
@@ -113,7 +113,7 @@ function Featured() {
         <div className="flex flex-col items-center justify-center">
           <img
             loading="lazy"
-            src={Customer}
+            srcSet={Customer}
             alt="Customer Service"
             className="object-contain w-20 h-20 mb-6"
           />
@@ -123,7 +123,7 @@ function Featured() {
         <div className="flex flex-col items-center justify-center">
           <img
             loading="lazy"
-            src={Money}
+            srcSet={Money}
             alt="Money back"
             className="object-contain w-20 h-20 mb-6"
           />

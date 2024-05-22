@@ -50,7 +50,7 @@ function ProductCard(props) {
       <div className="flex justify-center items-center rounded mb-2 bg-secondary1 p-3 h-[250px] relative">
         <img
           loading="lazy"
-          src={data?.image}
+          srcSet={data?.image}
           alt="product image"
           className="object-contain max-w-32"
         />

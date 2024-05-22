@@ -35,36 +35,46 @@ function About() {
       </div>
       <ul className="grid grid-cols-2 lg:grid-cols-4 gap-[30px] mb-[140px]">
         <li className="rounded border py-[30px]  cursor-pointer flex items-center justify-center flex-col gap-4 group">
-          <img src={Services} alt="Shop" className="" loading="lazy" />
+          <img srcSet={Services} alt="Shop" className="" loading="lazy" />
           <h2 className="font-bold text-[32px] text-center">10.5K</h2>
           <p>sellers active our site</p>
         </li>
         <li className="rounded border py-[30px] cursor-pointer flex items-center justify-center flex-col gap-4 group">
-          <img src={Services1} alt="Shop" className="" loading="lazy" />
+          <img srcSet={Services1} alt="Shop" className="" loading="lazy" />
           <h2 className="font-bold text-[32px] text-center">33K</h2>
           <p>Monthly Product Sale</p>
         </li>
         <li className="rounded border py-[30px] cursor-pointer flex items-center justify-center flex-col gap-4 group">
-          <img src={Services2} alt="Shop" className="" loading="lazy" />
+          <img srcSet={Services2} alt="Shop" className="" loading="lazy" />
           <h2 className="font-bold text-[32px] text-center">45.5K</h2>
           <p>Customer active in our site</p>
         </li>
         <li className="rounded border py-[30px] cursor-pointer flex items-center justify-center flex-col gap-4 group">
-          <img src={Services3} alt="Shop" className="" loading="lazy" />
+          <img srcSet={Services3} alt="Shop" className="" loading="lazy" />
           <h2 className="font-bold text-[32px] text-center">25K</h2>
           <p>Annual gross sale in our site</p>
         </li>
       </ul>
       <ul className="flex flex-col items-center justify-center lg:grid grid-cols-3 gap-[30px] mb-[140px]">
         <li>
-          <img src={about1} alt="" loading="lazy" />
+          <img srcSet={about1} alt="" loading="lazy" />
           <h2 className="font-medium text-[32px] mt-[32px]">Ahmed hussein</h2>
           <p className="mt-2">Founder & Chairman</p>
           <div className="flex items-center gap-4 mt-4">
-            <img src={twitter} alt="twitter" className="w-8" loading="lazy" />
-            <img src={Linkedin} alt="Linkedin" className="w-8" loading="lazy" />
             <img
-              src={instagram}
+              srcSet={twitter}
+              alt="twitter"
+              className="w-8"
+              loading="lazy"
+            />
+            <img
+              srcSet={Linkedin}
+              alt="Linkedin"
+              className="w-8"
+              loading="lazy"
+            />
+            <img
+              srcSet={instagram}
               alt="instagram"
               className="w-8"
               loading="lazy"
@@ -76,10 +86,20 @@ function About() {
           <h2 className="font-medium text-[32px] mt-[32px]">hussein nasser</h2>
           <p className="mt-2">Managing Director</p>
           <div className="flex items-center gap-4 mt-4">
-            <img src={twitter} alt="twitter" className="w-8" loading="lazy" />
-            <img src={Linkedin} alt="Linkedin" className="w-8" loading="lazy" />
             <img
-              src={instagram}
+              srcSet={twitter}
+              alt="twitter"
+              className="w-8"
+              loading="lazy"
+            />
+            <img
+              srcSet={Linkedin}
+              alt="Linkedin"
+              className="w-8"
+              loading="lazy"
+            />
+            <img
+              srcSet={instagram}
               alt="instagram"
               className="w-8"
               loading="lazy"
@@ -87,14 +107,19 @@ function About() {
           </div>
         </li>
         <li>
-          <img src={about2} alt="" loading="lazy" />
+          <img srcSet={about2} alt="" loading="lazy" />
           <h2 className="font-medium text-[32px] mt-[32px]">osama ahmed</h2>
           <p className="mt-2">Product Designer</p>
           <div className="flex items-center gap-4 mt-4">
-            <img src={twitter} alt="twitter" className="w-8" loading="lazy" />
+            <img
+              srcSet={twitter}
+              alt="twitter"
+              className="w-8"
+              loading="lazy"
+            />
             <img src={Linkedin} alt="Linkedin" className="w-8" loading="lazy" />
             <img
-              src={instagram}
+              srcSet={instagram}
               alt="instagram"
               className="w-8"
               loading="lazy"
@@ -106,7 +131,7 @@ function About() {
         <div className="flex flex-col items-center justify-center">
           <img
             loading="lazy"
-            src={Delivery}
+            srcSet={Delivery}
             alt="Delivery"
             className="object-contain w-20 h-20 mb-6"
           />
@@ -116,7 +141,7 @@ function About() {
         <div className="flex flex-col items-center justify-center">
           <img
             loading="lazy"
-            src={Customer}
+            srcSet={Customer}
             alt="Customer Service"
             className="object-contain w-20 h-20 mb-6"
           />
@@ -126,7 +151,7 @@ function About() {
         <div className="flex flex-col items-center justify-center">
           <img
             loading="lazy"
-            src={Money}
+            srcSet={Money}
             alt="Money back"
             className="object-contain w-20 h-20 mb-6"
           />

@@ -112,7 +112,7 @@ function CheckOut() {
               <div className="flex items-center -ml-1.5 gap-6">
                 <img
                   loading="lazy"
-                  src={product.image}
+                  srcSet={product.image}
                   alt={product.name}
                   className="object-contain w-12 h-12"
                 />
@@ -144,9 +144,9 @@ function CheckOut() {
               />
               <label htmlFor="bank">bank</label>
               <div className="absolute right-0 flex items-center gap-2">
-                <img loading="lazy" src={visa} alt="visa" />
-                <img loading="lazy" src={Mastercard} alt="Mastercard" />
-                <img loading="lazy" src={Bkash} alt="Nagad" />
+                <img loading="lazy" srcSet={visa} alt="visa" />
+                <img loading="lazy" srcSet={Mastercard} alt="Mastercard" />
+                <img loading="lazy" srcSet={Bkash} alt="Nagad" />
               </div>
             </div>
             <div className="flex gap-4">
