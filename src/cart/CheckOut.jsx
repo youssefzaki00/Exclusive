@@ -1,6 +1,6 @@
-import Mastercard from "../assets/Icons/Mastercard.svg";
-import visa from "../assets/Icons/Visa.svg";
-import Bkash from "../assets/Icons/Bkash.svg";
+import Mastercard from "../assets/Icons/Mastercard.png";
+import visa from "../assets/Icons/Visa.png";
+import Bkash from "../assets/Icons/Bkash.png";
 import RoadMap from "../components/RoadMap";
 import { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";

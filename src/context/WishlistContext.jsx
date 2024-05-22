@@ -55,12 +55,14 @@ const WishlistProvider = ({ children }) => {
   };
 
   const fetchWishlist = async () => {
-    let { data } = await supabase
-      .from("clients")
-      .select("wishlist")
-      .eq("id", user?.id);
-    const parsedWishList = data[0]?.wishlist?.map((e) => JSON.parse(e));
-    setWishlist(parsedWishList);
+    if (user) {
+      let { data } = await supabase
+        .from("clients")
+        .select("wishlist")
+        .eq("id", user?.id);
+      const parsedWishList = data[0]?.wishlist?.map((e) => JSON.parse(e));
+      setWishlist(parsedWishList);
+    }
   };
 
   useEffect(() => {

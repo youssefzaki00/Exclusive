@@ -1,5 +1,5 @@
 import heroImg from "../assets/HeroSection/heroImage.png";
-import Apple from "../assets/Icons/Apple_gray_logo 1.svg";
+import Apple from "../assets/Icons/Apple_gray_logo 1.png";
 import arrowRight from "../assets/Icons/arrow-right.svg";
 function HeroSection() {
   const sections = [

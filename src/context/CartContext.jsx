@@ -58,12 +58,14 @@ const CartProvider = ({ children }) => {
     }
   };
   const fetchCart = async () => {
-    let { data } = await supabase
-      .from("clients")
-      .select("cart")
-      .eq("id", user?.id);
-    const parsedCartArr = data[0]?.cart?.map((e) => JSON.parse(e));
-    setCart(parsedCartArr);
+    if (user) {
+      let { data } = await supabase
+        .from("clients")
+        .select("cart")
+        .eq("id", user?.id);
+      const parsedCartArr = data[0]?.cart?.map((e) => JSON.parse(e));
+      setCart(parsedCartArr);
+    }
   };
 
   useEffect(() => {
