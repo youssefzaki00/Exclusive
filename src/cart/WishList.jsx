@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import ProductCard from "../components/ProductCard";
 import RelatedProducts from "../components/RelatedProducts";
-import useUserData from "./../hooks/useUserData";
+// import useUserData from "./../hooks/useUserData";
+import { WishlistContext } from "../context/WishlistContext";
 
 function WishList() {
-  const { user } = useUserData();
-  const wishListProducts = user?.wishlist || [];
+  // const { user } = useUserData();
+  const { wishlist } = useContext(WishlistContext);
+  const wishListProducts = wishlist || [];
   return (
     <div className="CustomContainer mt-20 mb-[140px]">
       <div className="flex items-center justify-between">

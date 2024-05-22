@@ -98,9 +98,7 @@ function App() {
             />
             <Route
               path="/checkout"
-              element={
-                user?.cart_products?.length > 0 ? <CheckOut /> : <Cart />
-              }
+              element={user?.cart?.length > 0 ? <CheckOut /> : <Cart />}
             />
             <Route path="/:category/:name" element={<ProductDetails />} />
           </Routes>

@@ -1,25 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RoadMap from "./../components/RoadMap";
 
-import useUserData from "../hooks/useUserData";
-import { supabase } from "../utils/supabase";
+// import useUserData from "../hooks/useUserData";
+// import { supabase } from "../utils/supabase";
+import { CartContext } from "../context/CartContext";
 
 function Cart() {
-  const { user } = useUserData();
-  const [cartProducts, setCartProducts] = useState(user.cart);
+  const { cart } = useContext(CartContext);
+
   const [quantities, setQuantities] = useState(
-    cartProducts.map((product) => ({ [product.id]: 1 }))
+    cart?.map((product) => ({ [product.id]: 1 }))
   );
   const [total, setTotal] = useState(0);
-  async function getCartArr() {
-    let { data } = await supabase
-      .from("clients")
-      .select("cart")
-      .eq("id", user.id);
-    const parsedCartArr = data[0]?.cart?.map((e) => JSON.parse(e));
-    setCartProducts(parsedCartArr);
-  }
+
   function handleQuantitiesChange(productID, e) {
     setQuantities({
       ...quantities,
@@ -29,12 +23,12 @@ function Cart() {
   }
 
   const calculateSubtotal = (product, quantities) => {
-    return parseFloat(product.price) * parseFloat(quantities);
+    return parseFloat(product?.price) * parseFloat(quantities);
   };
 
   const calculateTotal = () => {
     let newTotal = 0;
-    for (const product of cartProducts) {
+    for (const product of cart) {
       newTotal += parseFloat(
         calculateSubtotal(product, quantities[product.id] || 1)
       );
@@ -43,7 +37,6 @@ function Cart() {
   };
 
   useEffect(() => {
-    getCartArr();
     calculateTotal();
   }, [quantities]);
   return (
@@ -59,7 +52,7 @@ function Cart() {
           <li>quantities </li>
           <li>subtotal </li>
         </ul>
-        {cartProducts.map((product) => (
+        {cart?.map((product) => (
           <ul
             key={product?.id}
             className="grid grid-cols-4 place-items-center shadow-md 

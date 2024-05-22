@@ -4,154 +4,41 @@ import WishlistIcon from "../assets/Icons/Wishlist.svg";
 import wishlistRed from "../assets/Icons/wishlistRed.svg";
 import QuickView from "../assets/Icons/QuickView.svg";
 import { Link } from "react-router-dom";
-import { supabase } from "../utils/supabase";
-import useUserData from "../hooks/useUserData";
-import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { WishlistContext } from "../context/WishlistContext";
+import { CartContext } from "../context/CartContext";
 
 function ProductCard(props) {
   const { data, translate } = props;
-  const review = 5;
-  const { user, setUser } = useUserData();
-  const [inWishList, setInWishList] = useState(false);
+  const { wishlist, addToWishlist, removeFromWishlist } =
+    useContext(WishlistContext);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const [inWishlist, setInWishList] = useState(false);
   const [inCart, setInCart] = useState(false);
-  const [list, setList] = useState(user.wishlist);
-  const [cartArr, setCartArr] = useState(user.cart);
-  async function addToCart() {
-    const cartList = cartArr ? cartArr : [];
-    const { error } = await supabase
-      .from("clients")
-      .update({
-        ...user,
-        cart: [...cartList, data],
-      })
-      .eq("id", user.id)
-      .select();
-    if (error) {
-      toast.error("Failed adding product to your car try again.");
-      console.log(error.message);
-    } else {
-      setUser({
-        ...user,
-        cart: [...cartList, data],
-      });
-      checkInCartArr();
-      setInCart(true);
-      toast.success("Product Added to your cart successfully");
-    }
-  }
-  async function removeFromCart() {
-    let filteredCart = [];
-    filteredCart = cartArr.filter((product) => product.id != data.id);
-
-    const { error } = await supabase
-      .from("clients")
-      .update({
-        ...user,
-        cart: filteredCart,
-      })
-      .eq("id", user.id)
-      .select();
-    if (error) {
-      toast.error("Failed removing product from your cart try again.");
-      console.log(error.message);
-    } else {
-      setUser({
-        ...user,
-        cart: filteredCart,
-      });
-      checkInCartArr();
-      setInCart(false);
-      toast.success("Product removed from your cart successfully");
-    }
-  }
-  async function getCartArr() {
-    let { data } = await supabase
-      .from("clients")
-      .select("cart")
-      .eq("id", user.id);
-    const parsedCartArr = data[0]?.cart?.map((e) => JSON.parse(e));
-    setCartArr(parsedCartArr);
-  }
-  const checkInCartArr = async () => {
-    for (let i = 0; i < cartArr?.length; i++) {
-      if (cartArr[i]?.id && cartArr[i].id == data?.id) {
-        setInCart(true);
-      } else {
-        setInCart(false);
-      }
-    }
-  };
-  async function addToWishlist() {
-    const { error } = await supabase
-      .from("clients")
-      .update({
-        ...user,
-        wishlist: [...list, data],
-      })
-      .eq("id", user.id)
-      .select();
-    if (error) {
-      toast.error("Failed adding product to your wishlist try again.");
-      console.log(error.message);
-    } else {
-      setUser({
-        ...user,
-        wishlist: [...list, data],
-      });
-      checkInWishList();
-      setInWishList(true);
-      toast.success("Product Added to your wishlist successfully");
-    }
-  }
-  async function removeFromWishlist() {
-    let filteredList = [];
-    filteredList = list.filter((product) => product.id != data.id);
-
-    const { error } = await supabase
-      .from("clients")
-      .update({
-        ...user,
-        wishlist: filteredList,
-      })
-      .eq("id", user.id)
-      .select();
-    if (error) {
-      toast.error("Failed removing product from your wishlist try again.");
-      console.log(error.message);
-    } else {
-      setUser({
-        ...user,
-        wishlist: filteredList,
-      });
-      checkInWishList();
-      setInWishList(false);
-      toast.success("Product removed from your wishlist successfully");
-    }
-  }
-  async function getWishList() {
-    let { data } = await supabase
-      .from("clients")
-      .select("wishlist")
-      .eq("id", user.id);
-    const parsedWishList = data[0].wishlist.map((e) => JSON.parse(e));
-    setList(parsedWishList);
-  }
-  const checkInWishList = async () => {
-    for (let i = 0; i < list?.length; i++) {
-      if (list[i]?.id && list[i].id == data?.id) {
-        setInWishList(true);
-      } else {
-        setInWishList(false);
-      }
-    }
-  };
+  const review = 5;
   useEffect(() => {
-    getCartArr();
-    checkInCartArr();
-    getWishList();
-    checkInWishList();
-  }, []);
+    const result = wishlist?.some((product) => product?.id == data?.id);
+    setInWishList(result);
+  }, [wishlist, data]);
+  useEffect(() => {
+    const result = cart?.some((product) => product?.id === data?.id);
+    setInCart(result);
+  }, [cart, data]);
+
+  const handleWishlistAction = () => {
+    if (inWishlist == true) {
+      removeFromWishlist(data?.id);
+    } else {
+      addToWishlist(data);
+    }
+  };
+  const handleCartAction = () => {
+    if (inCart == true) {
+      removeFromCart(data?.id);
+    } else {
+      addToCart(data);
+    }
+  };
   return (
     <div
       key={data.id}
@@ -171,12 +58,9 @@ function ProductCard(props) {
           -35%
         </p>
         <div className="absolute flex flex-col gap-2 top-3 right-3">
-          <button
-            type="button"
-            onClick={inWishList ? removeFromWishlist : addToWishlist}
-          >
+          <button type="button" onClick={handleWishlistAction}>
             <img
-              src={inWishList ? wishlistRed : WishlistIcon}
+              src={inWishlist == true ? wishlistRed : WishlistIcon}
               alt="Wishlist"
               className="object-contain p-1 w-[34px] rounded-full cursor-pointer bg-secondary2 hover:shadow active:shadow-inner"
             />
@@ -190,11 +74,11 @@ function ProductCard(props) {
           </Link>
         </div>
         <button
-          onClick={inCart ? removeFromCart : addToCart}
+          onClick={handleCartAction}
           className="absolute bottom-0 left-0 items-center justify-center hidden w-full gap-2 py-2 text-center transition-all duration-200 bg-black text-primary1 group-hover:flex"
         >
           <img src={Cart} alt="Cart" />
-          <p>{inCart ? "remove from cart" : "add to Cart"}</p>
+          <p>{inCart == true ? "remove from cart" : "add to Cart"}</p>
         </button>
       </div>
       <p className="font-medium text-text3 ">{data.name}</p>
