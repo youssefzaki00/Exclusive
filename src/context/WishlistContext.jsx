@@ -49,8 +49,31 @@ const WishlistProvider = ({ children }) => {
       toast.error("Failed removing product from your wishlist try again.");
       console.log(error.message);
     } else {
+      setUser({
+        ...user,
+        wishlist: filteredList,
+      });
       setWishlist(filteredList);
       toast.success("Product removed from your wishlist successfully");
+    }
+  };
+  const removeAllWishlist = async () => {
+    const { error } = await supabase
+      .from("clients")
+      .update({
+        ...user,
+        wishlist: [],
+      })
+      .eq("id", user?.id)
+      .select();
+    if (error) {
+      console.log(error.message);
+    } else {
+      setWishlist([]);
+      setUser({
+        ...user,
+        wishlist: [],
+      });
     }
   };
 
@@ -73,6 +96,7 @@ const WishlistProvider = ({ children }) => {
     wishlist,
     addToWishlist,
     removeFromWishlist,
+    removeAllWishlist,
   };
 
   return (

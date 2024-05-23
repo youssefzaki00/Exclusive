@@ -33,7 +33,25 @@ const CartProvider = ({ children }) => {
       toast.success("Product Added to your cart successfully");
     }
   };
-
+  const addAllToCart = async (products) => {
+    const cartList = cart ? cart : [];
+    const { error } = await supabase
+      .from("clients")
+      .update({
+        ...user,
+        cart: [...cartList, ...products],
+      })
+      .eq("id", user?.id)
+      .select();
+    if (error) {
+      toast.error("Failed adding product to your cart try again.");
+      console.log(error.message);
+    } else {
+      setCart([...cartList, ...products]);
+      setUser({ ...user, cart: [...cartList, ...products] });
+      toast.success("Products Added to your cart successfully");
+    }
+  };
   const removeFromCart = async (productId) => {
     let filteredCart = cart?.filter((product) => product.id != productId);
 
@@ -75,6 +93,7 @@ const CartProvider = ({ children }) => {
   const value = {
     cart,
     addToCart,
+    addAllToCart,
     removeFromCart,
   };
 

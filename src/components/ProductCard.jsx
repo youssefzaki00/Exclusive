@@ -15,7 +15,6 @@ function ProductCard(props) {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const [inWishlist, setInWishList] = useState(false);
   const [inCart, setInCart] = useState(false);
-  const review = 5;
   useEffect(() => {
     const result = wishlist?.some((product) => product?.id == data?.id);
     setInWishList(result);
@@ -91,7 +90,10 @@ function ProductCard(props) {
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1 stars ">
           {[...Array(5)].map((_, index) => (
-            <Star key={index} color={index < review ? "orange" : "gray"} />
+            <Star
+              key={index}
+              color={index < data.reviews ? "orange" : "gray"}
+            />
           ))}
         </div>
         <p className="text-sm font-semibold text-text2">({data.stock})</p>

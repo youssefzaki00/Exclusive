@@ -1,13 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RoadMap from "./../components/RoadMap";
-
-// import useUserData from "../hooks/useUserData";
-// import { supabase } from "../utils/supabase";
 import { CartContext } from "../context/CartContext";
-
+import cancelIcon from "../assets/Icons/icon-cancel-1.svg";
 function Cart() {
-  const { cart } = useContext(CartContext);
+  const { cart, removeFromCart } = useContext(CartContext);
 
   const [quantities, setQuantities] = useState(
     cart?.map((product) => ({ [product.id]: 1 }))
@@ -59,7 +56,17 @@ function Cart() {
       rounded w-full justify-items-center py-6 shadow-[#0000000D] text-center"
           >
             <li className="flex justify-center w-full">
-              <div className="grid items-center w-full grid-cols-2 place-items-end">
+              <div className="relative grid items-center w-full grid-cols-2 place-items-end">
+                <button
+                  className="absolute left-16 -top-4"
+                  onClick={() => removeFromCart(product?.id)}
+                >
+                  <img
+                    src={cancelIcon}
+                    alt="cancel product"
+                    className="object-contain "
+                  />
+                </button>
                 <img
                   loading="lazy"
                   srcSet={product?.image}

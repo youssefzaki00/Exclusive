@@ -1,18 +1,45 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import RoadMap from "./RoadMap";
 import Star from "./Star";
 import Delivery from "../assets/Icons/Delivery2.svg";
 import returnDelivery from "../assets/Icons/return.svg";
+import WishlistIcon from "../assets/Icons/Wishlist.svg";
+import wishlistRed from "../assets/Icons/wishlistRed.svg";
 import useFetchProducts from "./../hooks/useFetchProducts";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loading from "./Loader/Loading";
+import { WishlistContext } from "../context/WishlistContext";
+import { CartContext } from "../context/CartContext";
 function ProductDetails() {
   const params = useParams();
+  const navigate = useNavigate();
   const { products, loading } = useFetchProducts(params.name);
   const [product, setProduct] = useState(products);
+  // const [count, setCount] = useState(0);
+  const { wishlist, addToWishlist, removeFromWishlist } =
+    useContext(WishlistContext);
+  const { addToCart } = useContext(CartContext);
+  const [inWishlist, setInWishList] = useState(false);
   useEffect(() => {
     setProduct(...products);
   }, [products, params]);
+
+  useEffect(() => {
+    const result = wishlist?.some((e) => product?.id == e?.id);
+    setInWishList(result);
+  }, [wishlist, product]);
+  console.log(product);
+  const handleWishlistAction = () => {
+    if (inWishlist == true) {
+      removeFromWishlist(product?.id);
+    } else {
+      addToWishlist(product);
+    }
+  };
+  const handleCartAction = () => {
+    addToCart(product);
+    navigate("/cart");
+  };
   return (
     <>
       {loading ? (
@@ -20,6 +47,7 @@ function ProductDetails() {
       ) : (
         <div className="capitalize CustomContainer">
           <RoadMap />
+
           <div className="grid lg:grid-cols-7 mb-[140px]">
             <div className="flex lg:grid grid-cols-1 mb-4 lg:mb-0 gap-2 lg:gap-4 lg:mr-[30px] lg:col-span-1">
               <div className="flex items-center justify-center p-2 rounded bg-secondary1 lg:p-4">
@@ -86,9 +114,10 @@ function ProductDetails() {
                 {product?.description}
               </p>
               <div className="flex items-center gap-4 mt-6">
-                <form className="max-w-xs mx-auto">
+                {/* <form className="max-w-xs mx-auto">
                   <div className="relative flex items-center max-w-[8rem]  border-border-[#808080]">
                     <button
+                      onClick={() => setCount(count - 1)}
                       type="button"
                       id="decrement-button"
                       data-input-counter-decrement="quantity-input"
@@ -119,8 +148,10 @@ function ProductDetails() {
                       className="bg-gray-50 border-y border-[#808080] h-11 text-center text-gray-900 text-sm block w-full py-2.5 "
                       placeholder="999"
                       required
+                      value={count}
                     />
                     <button
+                      onClick={() => setCount(count + 1)}
                       type="button"
                       id="increment-button"
                       data-input-counter-increment="quantity-input"
@@ -143,27 +174,23 @@ function ProductDetails() {
                       </svg>
                     </button>
                   </div>
-                </form>
+                </form> */}
 
-                <button className="p-3 text-xs font-medium rounded shadow bg-button2 text-text1 lg:px-12 hover:bg-buttonHover1 active:shadow-inner lg:text-base">
+                <button
+                  onClick={handleCartAction}
+                  className="p-3 text-xs font-medium rounded shadow bg-button2 text-text1 lg:px-12 hover:bg-buttonHover1 active:shadow-inner lg:text-base"
+                >
                   Buy Now
                 </button>
-                <button className="border border-[#808080] rounded p-1 ">
-                  <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11 7C8.239 7 6 9.216 6 11.95C6 14.157 6.875 19.395 15.488 24.69C15.6423 24.7839 15.8194 24.8335 16 24.8335C16.1806 24.8335 16.3577 24.7839 16.512 24.69C25.125 19.395 26 14.157 26 11.95C26 9.216 23.761 7 21 7C18.239 7 16 10 16 10C16 10 13.761 7 11 7Z"
-                      stroke="black"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                <button
+                  onClick={handleWishlistAction}
+                  className="border border-[#808080] rounded p-1 "
+                >
+                  <img
+                    src={inWishlist == true ? wishlistRed : WishlistIcon}
+                    alt="Wishlist"
+                    className="object-contain p-1 w-[34px] rounded-full cursor-pointer bg-secondary2 hover:shadow active:shadow-inner"
+                  />
                 </button>
               </div>
               <div className="border border-[#808080] rounded  mt-10">
