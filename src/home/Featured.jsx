@@ -6,6 +6,7 @@ import playstation from "../assets/FeaturedSection/playstation.png";
 import Delivery from "../assets/Icons/Services=Delivery.svg";
 import Customer from "../assets/Icons/Services=Customer service.svg";
 import Money from "../assets/Icons/Services=Money back.svg";
+import { Link } from "react-router-dom";
 function Featured() {
   return (
     <div className="CustomContainer py-[140px] ">
@@ -27,9 +28,12 @@ function Featured() {
             <p className="text-sm ">
               Black and White version of the PS5 coming out on sale.
             </p>
-            <a href="#" className="font-medium underline underline-offset-4">
+            <Link
+              to="/Products"
+              className="font-medium underline underline-offset-4"
+            >
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
         <div
@@ -51,9 +55,12 @@ function Featured() {
             <p className="text-sm ">
               Featured man collections that give you another vibe.
             </p>
-            <a href="#" className="font-medium underline underline-offset-4">
+            <Link
+              to="/Products"
+              className="font-medium underline underline-offset-4"
+            >
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
         <div
@@ -72,9 +79,12 @@ function Featured() {
               Speakers
             </h4>
             <p className="text-sm ">Amazon wireless speakers</p>
-            <a href="#" className="font-medium underline underline-offset-4">
+            <Link
+              to="/Products"
+              className="font-medium underline underline-offset-4"
+            >
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
         <div
@@ -93,9 +103,12 @@ function Featured() {
               Perfume
             </h4>
             <p className="text-sm ">GUCCI INTENSE OUD EDP</p>
-            <a href="#" className="font-medium underline underline-offset-4">
+            <Link
+              to="/Products"
+              className="font-medium underline underline-offset-4"
+            >
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>

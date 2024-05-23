@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./utils/ScrollToTop";
 import { WishlistProvider } from "./context/WishlistContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
+import SearchProvider from "./context/SearchContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserDataProvider>
         <CartProvider>
           <WishlistProvider>
-            <App />
-            <ScrollToTop />
-            <ToastContainer />
+            <SearchProvider>
+              <App />
+              <ScrollToTop />
+              <ToastContainer />
+            </SearchProvider>
           </WishlistProvider>
         </CartProvider>
       </UserDataProvider>

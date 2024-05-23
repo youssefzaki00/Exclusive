@@ -39,18 +39,16 @@ function Footer() {
             <h2 className="mb-6 text-xl font-medium">Support</h2>
             <ul className="flex flex-col gap-4 text-sm font-medium">
               <li className="">
+                <p className="hover:underline">Tanta,Egypt.</p>
+              </li>
+              <li className="text-sm">
                 <a href="#" className="hover:underline">
-                  111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.
+                  zakiyousef15@gmail.com
                 </a>
               </li>
               <li className="text-sm">
                 <a href="#" className="hover:underline">
-                  exclusive@gmail.com
-                </a>
-              </li>
-              <li className="text-sm">
-                <a href="#" className="hover:underline">
-                  +88015-88888-9999
+                  +201070474589
                 </a>
               </li>
             </ul>
@@ -79,7 +77,7 @@ function Footer() {
                 </Link>
               </li>
               <li className="text-sm">
-                <Link href="#" className="hover:underline">
+                <Link href="/Products" className="hover:underline">
                   Shop
                 </Link>
               </li>

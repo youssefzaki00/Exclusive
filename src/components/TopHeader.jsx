@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import DropDown from "./DropDown";
 
 function TopHeader() {
@@ -11,12 +12,12 @@ function TopHeader() {
           <p>
             Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
           </p>
-          <a
-            href="#"
+          <Link
+            to="/Products"
             className="text-xs lg:text-sm font-semibold underline capitalize"
           >
             shopNow!
-          </a>
+          </Link>
         </div>
       </div>
       <DropDown />

@@ -19,6 +19,7 @@ import CheckEmail from "./components/CheckEmail";
 import useFetchProducts from "./hooks/useFetchProducts";
 import Loading from "./components/Loader/Loading";
 import useUserData from "./hooks/useUserData";
+import Products from "./components/Products";
 
 function App() {
   const { user, setUser } = useUserData();
@@ -74,6 +75,7 @@ function App() {
             <Route path="/Error" element={<Error />} />
             <Route path="/Login" element={user ? <Home /> : <Login />} />
             <Route path="/SignUp" element={user ? <Home /> : <SignUp />} />
+            <Route path="/Products" element={<Products />} />
             <Route
               path="/Cart"
               element={!user ? <Navigate to="/login" replace /> : <Cart />}

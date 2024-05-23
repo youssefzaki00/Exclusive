@@ -4,6 +4,7 @@ import arrowLeft from "../assets/Icons/arrow-left.svg";
 import ProductCard from "./../components/ProductCard";
 import { useState } from "react";
 import { isResponsive } from "../utils/utils";
+import { Link } from "react-router-dom";
 function TodayOffer({ products }) {
   const [translate, setTranslate] = useState(0);
 
@@ -80,13 +81,13 @@ function TodayOffer({ products }) {
         ))}
       </div>
       <div className="flex justify-center items-center  border-b pb-[60px]">
-        <button
-          href="#"
+        <Link
+          to="/Products"
           className=" bg-button2 hover:bg-buttonHover1 text-text1 px-12 py-4 rounded 
           font-medium mt-[76px] capitalize text-center w-fit shadow active:shadow-inner"
         >
           view all products
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import SectionHeader from "../components/SectionHeader";
 import ProductCard from "./../components/ProductCard";
 import OfferImage from "../assets/ThisMonthSection/monthOfferImg.png";
+import { Link } from "react-router-dom";
 function MonthOffer({ products }) {
   const counterSectionStyle = `flex w-[62px] h-[62px] flex-col items-center
           justify-center relative bg-primary1 text-text3 rounded-full`;
@@ -11,12 +12,13 @@ function MonthOffer({ products }) {
         <h2 className="text-4xl font-semibold capitalize">
           Best Selling Products
         </h2>
-        <button
-          href="#"
-          className="px-12 py-4 font-medium text-center capitalize rounded shadow bg-button2 hover:bg-buttonHover1 text-text1 w-fit active:shadow-inner"
+        <Link
+          to="/Products"
+          className=" bg-button2 hover:bg-buttonHover1 text-text1 px-12 py-4 rounded 
+          font-medium mt-[76px] capitalize text-center w-fit shadow active:shadow-inner"
         >
-          view all
-        </button>
+          view all products
+        </Link>
       </div>
       <div className="grid lg:grid-cols-4  items-center gap-[30px] mt-10 w-full relative ">
         {products.slice(2, 6).map((data) => (

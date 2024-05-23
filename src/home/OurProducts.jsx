@@ -2,6 +2,7 @@ import SectionHeader from "../components/SectionHeader";
 import ProductCard from "./../components/ProductCard";
 import arrowRight from "../assets/Icons/arrow-right.svg";
 import arrowLeft from "../assets/Icons/arrow-left.svg";
+import { Link } from "react-router-dom";
 function OurProducts({ products }) {
   return (
     <div className="CustomContainer mt-[71px]">
@@ -33,12 +34,13 @@ function OurProducts({ products }) {
         ))}
       </div>
       <div className="flex items-center justify-center mt-[60px]">
-        <button
-          href="#"
-          className="px-12 py-4 font-medium text-center capitalize rounded shadow bg-button2 hover:bg-buttonHover1 text-text1 w-fit active:shadow-inner"
+        <Link
+          to="/Products"
+          className=" bg-button2 hover:bg-buttonHover1 text-text1 px-12 py-4 rounded 
+          font-medium mt-[76px] capitalize text-center w-fit shadow active:shadow-inner"
         >
-          View All Products
-        </button>
+          view all products
+        </Link>
       </div>
     </div>
   );

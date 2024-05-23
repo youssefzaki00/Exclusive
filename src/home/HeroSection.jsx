@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImg from "../assets/HeroSection/heroImage.png";
 import Apple from "../assets/Icons/Apple_gray_logo 1.png";
 import arrowRight from "../assets/Icons/arrow-right.svg";
@@ -34,10 +35,10 @@ function HeroSection() {
           <h2 className="text-5xl font-semibold leading-tight tracking-wide ">
             Up to 10% off Voucher
           </h2>
-          <a href="#" className="flex gap-2 p-2 underline">
+          <Link to="/Products" className="flex gap-2 p-2 underline">
             Shop Now
             <img src={arrowRight} alt="arrowRight" className=" invert" />
-          </a>
+          </Link>
         </div>
         <img
           srcSet={heroImg}

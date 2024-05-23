@@ -6,12 +6,14 @@ import cartWhite from "../assets/Icons/Cart1-white.svg";
 import Account from "../assets/Icons/User=Off.svg";
 import AccountWhite from "../assets/Icons/UserWhite.svg";
 import menu from "../assets/Icons/burger-menu.svg";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../utils/supabase";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router";
 import useUserData from "../hooks/useUserData";
+import useFetchProducts from "./../hooks/useFetchProducts";
+import { SearchContext } from "../context/SearchContext";
 
 function Header() {
   const navigate = useNavigate();
@@ -19,6 +21,14 @@ function Header() {
   const { setUser } = useUserData();
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isUser, setIsUser] = useState(false);
+  const { products } = useFetchProducts();
+  const { setSearchResult } = useContext(SearchContext);
+  function search(e) {
+    const filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setSearchResult(filteredProducts);
+  }
   async function signOut() {
     let { error } = await supabase.auth.signOut();
     setUser("");
@@ -51,7 +61,7 @@ function Header() {
           } block right-2 z-[5] lg:hidden`}
           onClick={() => setIsMenuActive(!isMenuActive)}
         >
-          <img  src={menu} alt="menu" />
+          <img src={menu} alt="menu" />
         </button>
         <div
           className={`${
@@ -100,7 +110,7 @@ function Header() {
             </li>
           </ul>
           <div className="flex flex-col-reverse lg:flex-row items-center gap-4 lg:gap-[30px] col-span-6 -ml-5">
-            <form className="max-w-md mx-auto ">
+            <div className="max-w-md mx-auto ">
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -109,17 +119,17 @@ function Header() {
               </label>
               <div className="relative">
                 <input
+                  onKeyUp={(e) => search(e)}
                   type="search"
                   id="default-search"
                   className="block lg:min-w-40 w-full px-5 py-[7px] placeholder:text-xs text-sm text-gray-900 border rounded bg-gray-50 "
                   placeholder="What are you looking for ?"
-                  required
                 />
                 <div className="absolute inset-y-0 flex items-center pr-3 pointer-events-none end-0">
                   <img src={searchIcon} alt="search Icon" />
                 </div>
               </div>
-            </form>
+            </div>
             <div className="grid items-center grid-cols-3 gap-2">
               <Link
                 to="/wishlist"
@@ -131,7 +141,6 @@ function Header() {
                 onClick={() => setIsMenuActive(false)}
               >
                 <img
-                  
                   src={
                     location.pathname == "/wishlist" ? wishlistWhite : wishlist
                   }
@@ -146,7 +155,6 @@ function Header() {
                 onClick={() => setIsMenuActive(false)}
               >
                 <img
-                  
                   src={location.pathname == "/cart" ? cartWhite : cart}
                   alt="cart"
                 />
@@ -161,7 +169,6 @@ function Header() {
                 onClick={() => setIsMenuActive(false)}
               >
                 <img
-                  
                   src={
                     location.pathname == "/My%20Account"
                       ? AccountWhite
