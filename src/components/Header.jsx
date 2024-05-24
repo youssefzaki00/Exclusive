@@ -24,6 +24,7 @@ function Header() {
   const { products } = useFetchProducts();
   const { setSearchResult } = useContext(SearchContext);
   function search(e) {
+    navigate('/Products')
     const filteredProducts = products.filter((product) =>
       product.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
